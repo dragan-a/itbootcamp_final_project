@@ -30,4 +30,9 @@ public class LoginPage extends BasePage{
     public WebElement getLoginBtn() {
         return driver.findElement(loginBtn);
     }
+    public void enterCredentials(String email, String password){
+        getEmailField().sendKeys(email);
+        getPasswordField().sendKeys(password);
+        getLoginBtn().click();
+    }
 }

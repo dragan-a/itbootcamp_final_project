@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import pages.BasePage;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.SignupPage;
 
 import java.time.Duration;
 
@@ -26,18 +27,20 @@ public abstract class BaseTest {
     protected WebDriverWait driverWait;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected SignupPage signupPage;
 
     @BeforeClass
     public void beforeClass (){
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 
-         driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-         driverWait = new WebDriverWait(driver, Duration.ofSeconds(25));
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(25));
         driver.get("https://vue-demo.daniel-avellaneda.com");
-         driverWait.until(ExpectedConditions.urlContains("https://vue-demo.daniel-avellaneda.com/"));
-         loginPage = new LoginPage(driver, driverWait);
-         homePage = new HomePage(driver,driverWait);
+        driverWait.until(ExpectedConditions.urlContains("https://vue-demo.daniel-avellaneda.com/"));
+        loginPage = new LoginPage(driver, driverWait);
+        homePage = new HomePage(driver,driverWait);
+        signupPage = new SignupPage(driver, driverWait);
     }
 
     @BeforeMethod

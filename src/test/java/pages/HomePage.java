@@ -16,6 +16,7 @@ public class HomePage extends BasePage{
     private By profileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
 
 
+
     public HomePage(){
     }
 
@@ -54,7 +55,10 @@ public class HomePage extends BasePage{
     public WebElement getHomeButton() {
         return driver.findElement(homeButton);
     }
-    public void visitsLoginPage(){
+    public void visitLoginPage(){
         getLoginButton().click();
+    }
+    public void visitSignupPage(){
+        getSignupButton().click();
     }
 }
