@@ -5,12 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class HomePage extends BasePage{
     private By homeButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[1]");
     private By loginButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
     private By signupButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[4]");
     private By adminButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[1]");
-    private By citiesButton = By.xpath("//*[@id=\"list-item-663\"]/div[2]");
+    private By citiesButton = By.xpath("//*[@id=\"app\"]/div[3]/div[1]/a[1]");
     private By logoutButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]");
     private By languageButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]");
     private By profileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
@@ -60,5 +62,16 @@ public class HomePage extends BasePage{
     }
     public void visitSignupPage(){
         getSignupButton().click();
+    }
+    public void logout(){
+        getLogoutButton().click();
+    }
+    public void visitHomePage(){
+        getHomeButton().click();
+    }
+    public void openCitiesPage (){
+        getAdminButton().click();
+        driverWait.withTimeout(Duration.ofSeconds(5));
+        getCitiesButton().click();
     }
 }

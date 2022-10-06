@@ -102,18 +102,24 @@ public class LoginTest extends BaseTest{
     //Test #6: Logout
     //assert:
     //•	Verifikovati da je dugme logout vidljivo na stranici
-    //•	Verifikovati da se u url-u stranice javlja /login ruta
+    //•	Verifikovati da se u url-u stranice javlja /login ruta    nakon klika na logout?
     //•	Verifikovati da se nakon pokušaja otvaranja /home rute, u url-u
     // stranice javlja /login ruta (otvoriti sa driver.get home page i proveriti da li vas redirektuje na login)
     @Test (dependsOnMethods = {"loginWithValidCredentialsTest"})
     public void logoutButtonVisibilityTest(){
-        boolean expectedResult = true;
-        boolean actualResult = homePage.getLogoutButton().isDisplayed();
-        Assert.assertTrue(expectedResult, String.valueOf(actualResult));
+        boolean expectedResult1 = true;
+        boolean actualResult1 = homePage.getLogoutButton().isDisplayed();
+        Assert.assertTrue(expectedResult1, String.valueOf(actualResult1));
 
+        homePage.logout();
         checkUrlLoginRoute();
+
         //•	Verifikovati da se nakon pokušaja otvaranja /home rute, u url-u
         // stranice javlja /login ruta (otvoriti sa driver.get home page i proveriti da li vas redirektuje na login)
+        driver.get("https://vue-demo.daniel-avellaneda.com/home");
+        String expectedResult2 = "https://vue-demo.daniel-avellaneda.com/login";
+        String actualResult2 = driver.getCurrentUrl();
+        Assert.assertEquals(actualResult2, expectedResult2);
 
     }
 

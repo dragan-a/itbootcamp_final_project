@@ -1,6 +1,5 @@
 package tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,10 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import pages.BasePage;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.SignupPage;
+import pages.*;
 
 import java.time.Duration;
 
@@ -28,6 +24,7 @@ public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected SignupPage signupPage;
+    protected AdminCitiesPage adminCitiesPage;
 
     @BeforeClass
     public void beforeClass (){
@@ -41,6 +38,7 @@ public abstract class BaseTest {
         loginPage = new LoginPage(driver, driverWait);
         homePage = new HomePage(driver,driverWait);
         signupPage = new SignupPage(driver, driverWait);
+        adminCitiesPage = new AdminCitiesPage(driver, driverWait);
     }
 
     @BeforeMethod
