@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -14,7 +15,10 @@ public class HomePage extends BasePage{
     private By adminButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[1]");
     private By citiesButton = By.xpath("//*[@id=\"app\"]/div[3]/div[1]/a[1]");
     private By logoutButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]");
-    private By languageButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]");
+    private By languageButton = By.xpath("//*[@id=\"app\"]/div/div/header/div/div[3]/button");
+    private By spanishButton = By.id("list-item-75");
+    private By englishButton = By.id("list-item-73");
+    private By franceButton = By.id("list-item-77");
     private By profileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
 
 
@@ -50,6 +54,18 @@ public class HomePage extends BasePage{
         return driver.findElement(languageButton);
     }
 
+    public WebElement getSpanishButton() {
+        return driver.findElement(spanishButton);
+    }
+
+    public WebElement getEnglishButton() {
+        return driver.findElement(englishButton);
+    }
+
+    public WebElement getFranceButton() {
+        return driver.findElement(franceButton);
+    }
+
     public WebElement getProfileButton() {
         return driver.findElement(profileButton);
     }
@@ -63,6 +79,9 @@ public class HomePage extends BasePage{
     public void visitSignupPage(){
         getSignupButton().click();
     }
+    public void visitProfilePage(){
+        getProfileButton().click();
+    }
     public void logout(){
         getLogoutButton().click();
     }
@@ -73,5 +92,18 @@ public class HomePage extends BasePage{
         getAdminButton().click();
         driverWait.withTimeout(Duration.ofSeconds(5));
         getCitiesButton().click();
+    }
+    public void languageChangeToSpanish(){
+        getLanguageButton().click();
+        getSpanishButton().click();
+
+    }
+    public void languageChangeToEnglish(){
+        getLanguageButton().click();
+        getEnglishButton().click();
+    }
+    public void languageChangeToFrance(){
+        getLanguageButton().click();
+        getFranceButton().click();
     }
 }

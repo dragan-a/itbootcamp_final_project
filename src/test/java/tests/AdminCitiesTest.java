@@ -5,6 +5,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 public class AdminCitiesTest extends BaseTest{
     //Test #1: Visits the admin cities page and list cities
     //Podaci:
@@ -14,6 +16,7 @@ public class AdminCitiesTest extends BaseTest{
     //•	Verifikovati da se u url-u stranice javlja /admin/cities ruta
     //•	Verifikovati postojanje logut dugmeta
 
+    //getNameField().sendKeys(Keys.CONTROL + "a" + Keys.DELETE)
     @Test
     public void citiesPageTest(){
         homePage.visitLoginPage();
@@ -33,12 +36,12 @@ public class AdminCitiesTest extends BaseTest{
     //assert:
     //•	Verifikovati da poruka sadrzi tekst Saved successfully
 
-    @Test
+    @Test (priority = 1)
     public void createCityTest(){
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String newCity = "BijeljiA";
+        String newCity = "Bn";
         adminCitiesPage.addingNewCity(newCity);
 
         String expectedResult = "Saved successfully";
@@ -52,16 +55,18 @@ public class AdminCitiesTest extends BaseTest{
     //Podaci: edituje se grad koji je u testu 2 kreiran na isto ime + - edited (primer: Beograd – Beograd edited)
     //assert:
     //•	Verifikovati da poruka sadrzi tekst Saved successfully
-    @Test (dependsOnMethods = {"createCityTest"})
+    @Test (priority = 2)
     public void editCityTest(){
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String myCity = "BijeljinA";
-        String edit = " + " + myCity;
+        String myCity = "Bn";
+        String edit = " - edited";
         adminCitiesPage.editCity(myCity, edit);
         String expectedResult1 = myCity + edit;
+        driverWait.withTimeout(Duration.ofSeconds(3));
         String actualResult1 = adminCitiesPage.getEditedCityName().getText();
+        driverWait.withTimeout(Duration.ofSeconds(3));
         Assert.assertEquals(actualResult1, expectedResult1);
 
         String expectedResult2 = "Saved successfully";
@@ -74,12 +79,12 @@ public class AdminCitiesTest extends BaseTest{
     //Podaci: editovani grad iz testa #3
     //assert:
     //•	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
-    @Test
+    @Test (priority = 3)
     public void searchCityTest(){
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String myCity = "BijeljinA + BijeljinA";
+        String myCity = "Bn - edited";
         adminCitiesPage.getSearchField().sendKeys(myCity);
         String expectedResult = myCity;
         String actualResult = adminCitiesPage.getEditedCityName().getText();
@@ -98,28 +103,32 @@ public class AdminCitiesTest extends BaseTest{
     //•	Sacekati da popu za prikaz poruke bude vidljiv
     //•	Verifikovati da poruka sadrzi tekst Deleted successfully
 
-    @Test
+    @Test (priority = 4)
     public void deleteCityTest(){
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String myCity = "BijeljinA + BijeljinA";
+        String myCity = "Bn - edited";
         adminCitiesPage.getSearchField().sendKeys(myCity);
-        driverWait.until(ExpectedConditions.textToBe(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[3]/div[2]"),
-                "1 - 1 of 1"));
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated
+                (By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[3]/div[2]")));
         String expectedResult = myCity;
         String actualResult = adminCitiesPage.getEditedCityName().getText();
         Assert.assertEquals(actualResult, expectedResult);
         adminCitiesPage.getDeleteBtn().click();
+        //waiting for warning
         driverWait.until(ExpectedConditions.visibilityOfElementLocated
-                (By.xpath("//*[@id=\"app\"]/div[7]/div/div")));
+                (By.xpath("//*[@id=\\\"app\\\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]\n")));
         adminCitiesPage.getDeleteBtnFromWarning().click();
+        //waiting for popup
         driverWait.until(ExpectedConditions.visibilityOfElementLocated
                 (By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
 
-        String expectedResult2 = "";
+        String expectedResult2 = "Deleted successfully";
         String actualResult2 = driver.findElement(By.xpath
                 ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")).getText();
-        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertTrue(actualResult2.contains(expectedResult2));
+
+        //private By deleteMessage = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]");
     }
 }
