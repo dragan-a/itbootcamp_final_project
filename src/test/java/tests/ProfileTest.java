@@ -27,12 +27,32 @@ public class ProfileTest extends BaseTest{
         String country = faker.address().country();
         String twitter = "https://" + faker.internet().domainName();
         String gitHub = "https://" + faker.name().firstName() + faker.internet().domainName();
-        System.out.println(name);
         profilePage.changeData(name, phone, city, country, twitter, gitHub);
-        String expResultForName = name;
-        String actResultForName = profilePage.getNameField().getAttribute("value");
-        System.out.println(actResultForName);
-        Assert.assertEquals(actResultForName, expResultForName);
+
+        String expectedResultForName = name;
+        String actualResultForName = profilePage.getNameField().getAttribute("value");
+        Assert.assertEquals(actualResultForName, expectedResultForName);
+
+        String expectedResultForPhone = phone;
+        String actualResultForPhone = profilePage.getPhoneField().getAttribute("value");
+        Assert.assertEquals(actualResultForPhone, expectedResultForPhone);
+
+        String expectedResultForCity = city;
+        String actualResultForCity = profilePage.getCityField().getAttribute("value");
+        Assert.assertEquals(actualResultForPhone, expectedResultForPhone);
+
+        String expectedResultForCountry = country;
+        String actualResultForCountry = profilePage.getCountryField().getAttribute("value");
+        Assert.assertEquals(actualResultForPhone, expectedResultForPhone);
+
+        String expectedResultForTwitter = twitter;
+        String actualResultForTwitter = profilePage.getTwitterField().getAttribute("value");
+        Assert.assertEquals(actualResultForPhone, expectedResultForPhone);
+
+        String expectedResultForGitHub = gitHub;
+        String actualResultForGitHub = profilePage.getGitHubField().getAttribute("value");
+        Assert.assertEquals(actualResultForPhone, expectedResultForPhone);
+
         homePage.logout();
 
 

@@ -16,7 +16,8 @@ public class ProfilePage extends BasePage{
     private By countryField = By.id("country");
     private By twitterField = By.id("urlTwitter");
     private By gitHubField = By.id("urlGitHub");
-    private By saveBtn = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[2]/span/form/div/div/div[8]/button");
+    private By saveBtn = By.xpath
+            ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[2]/span/form/div/div/div[8]/button");
 
     public ProfilePage() {
     }
@@ -53,20 +54,25 @@ public class ProfilePage extends BasePage{
         return driver.findElement(saveBtn);
     }
     public void changeData(String name, String phone, String city, String country, String twitter, String gitHub){
+        getNameField().click();
         getNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getNameField().sendKeys(name);
+        getPhoneField().click();
         getPhoneField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getPhoneField().sendKeys(phone);
+        getCityField().click();
         getCityField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getCityField().sendKeys(city);
+        getCountryField().click();
         getCountryField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getCountryField().sendKeys(country);
+        getTwitterField().click();
         getTwitterField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getTwitterField().sendKeys(twitter);
+        getGitHubField().click();
         getGitHubField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getGitHubField().sendKeys(gitHub);
         getSaveBtn().click();
-        driverWait.withTimeout(Duration.ofSeconds(5));
     }
 
 }

@@ -16,7 +16,7 @@ public class AdminCitiesPage extends BasePage{
     private By editItemField = By.id("name");
     private By editedCityName = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]");
     private By deleteBtn = By.id("delete");
-    private By deleteBtnFromWarning = By.xpath("//*[@id=\"app\"]/div[7]/div/div/div[2]/button[2]/span");
+    private By deleteBtnFromWarning = By.xpath("//*[@id='app']/div[5]/div/div/div[2]/button[2]");
 
     public AdminCitiesPage(){
     }

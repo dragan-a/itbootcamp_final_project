@@ -41,7 +41,7 @@ public class AdminCitiesTest extends BaseTest{
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String newCity = "Bn";
+        String newCity = "Boston";
         adminCitiesPage.addingNewCity(newCity);
 
         String expectedResult = "Saved successfully";
@@ -60,7 +60,7 @@ public class AdminCitiesTest extends BaseTest{
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String myCity = "Bn";
+        String myCity = "Boston";
         String edit = " - edited";
         adminCitiesPage.editCity(myCity, edit);
         String expectedResult1 = myCity + edit;
@@ -84,7 +84,7 @@ public class AdminCitiesTest extends BaseTest{
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String myCity = "Bn - edited";
+        String myCity = "Boston - edited";
         adminCitiesPage.getSearchField().sendKeys(myCity);
         String expectedResult = myCity;
         String actualResult = adminCitiesPage.getEditedCityName().getText();
@@ -108,7 +108,7 @@ public class AdminCitiesTest extends BaseTest{
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.openCitiesPage();
-        String myCity = "Bn - edited";
+        String myCity = "Boston - edited";
         adminCitiesPage.getSearchField().sendKeys(myCity);
         driverWait.until(ExpectedConditions.visibilityOfElementLocated
                 (By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[3]/div[2]")));
@@ -116,11 +116,12 @@ public class AdminCitiesTest extends BaseTest{
         String actualResult = adminCitiesPage.getEditedCityName().getText();
         Assert.assertEquals(actualResult, expectedResult);
         adminCitiesPage.getDeleteBtn().click();
-        //waiting for warning
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated
-                (By.xpath("//*[@id=\\\"app\\\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]\n")));
+
+        //waiting for warning dialogue
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[5]/div")));
         adminCitiesPage.getDeleteBtnFromWarning().click();
-        //waiting for popup
+
+        //waiting for pop-up
         driverWait.until(ExpectedConditions.visibilityOfElementLocated
                 (By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
 
@@ -129,6 +130,5 @@ public class AdminCitiesTest extends BaseTest{
                 ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")).getText();
         Assert.assertTrue(actualResult2.contains(expectedResult2));
 
-        //private By deleteMessage = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]");
     }
 }
