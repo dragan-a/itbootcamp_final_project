@@ -17,8 +17,15 @@ public class HomePage extends BasePage {
     private final By logoutButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]");
     private final By languageButton = By.xpath("//*[@id=\"app\"]/div/div/header/div/div[3]/button");
     private final By spanishButton = By.id("list-item-75");
+    private final By greetingMessageSpanish = By.xpath
+            ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/h1");
     private final By englishButton = By.id("list-item-73");
-    private final By franceButton = By.id("list-item-77");
+    private final By greetingMessageEnglish = By.xpath
+            ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/h1");
+    private final By frenchButton = By.id("list-item-77");
+    private final By greetingMessageFrench = By.xpath
+            ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/h1");
+
     private final By profileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
 
     public HomePage(WebDriver driver, WebDriverWait driverWait) {
@@ -57,16 +64,24 @@ public class HomePage extends BasePage {
         return driver.findElement(englishButton);
     }
 
-    public WebElement getFranceButton() {
-        return driver.findElement(franceButton);
+    public WebElement getFrenchButton() {
+        return driver.findElement(frenchButton);
     }
 
     public WebElement getProfileButton() {
         return driver.findElement(profileButton);
     }
 
-    public WebElement getHomeButton() {
-        return driver.findElement(homeButton);
+    public WebElement getGreetingMessageSpanish() {
+        return driver.findElement(greetingMessageSpanish);
+    }
+
+    public WebElement getGreetingMessageEnglish() {
+        return driver.findElement(greetingMessageEnglish);
+    }
+
+    public WebElement getGreetingMessageFrench() {
+        return driver.findElement(greetingMessageFrench);
     }
 
     public String getHomeRoute() {
@@ -111,9 +126,9 @@ public class HomePage extends BasePage {
         getEnglishButton().click();
     }
 
-    public void languageChangeToFrance() {
+    public void languageChangeToFrench() {
         getLanguageButton().click();
-        getFranceButton().click();
+        getFrenchButton().click();
     }
 
     public void waitingForHomeRouteToAppear() {

@@ -1,6 +1,5 @@
 package tests;
 
-import com.github.javafaker.Address;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,13 +12,6 @@ import pages.*;
 import java.time.Duration;
 
 public abstract class BaseTest {
-    /*Osnovna klasa koju svaki test da nasledjuje. Ova klasa treba da ima:
-•	    baseUrl - url stranice https://vue-demo.daniel-avellaneda.com
-•	    beforeClass - gde se podesava drajver sa implicitnim cekanjem i cekanjem za ucitavanje stranice i
-        kreiraju svi pagevi potrebni za testiranje
-•	    aftterClass - gde se gasi stranica
-•	    beforeMethod - gde se pre svakog testa ucitava baseUrl stranica
-*/
     protected WebDriver driver;
     protected WebDriverWait driverWait;
     protected LoginPage loginPage;
@@ -28,21 +20,21 @@ public abstract class BaseTest {
     protected AdminCitiesPage adminCitiesPage;
     protected ProfilePage profilePage;
     protected FakerPage fakerPage;
-
+    private final String baseURL = "https://vue-demo.daniel-avellaneda.com";
 
     @BeforeClass
-    public void beforeClass (){
+    public void beforeClass() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver = new ChromeDriver();
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));      // da li mi trebaju oba?
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(25));
 
-        driver.get("https://vue-demo.daniel-avellaneda.com");
-        driverWait.until(ExpectedConditions.urlContains("https://vue-demo.daniel-avellaneda.com/"));
+        driver.get(baseURL);
+        driverWait.until(ExpectedConditions.urlMatches(baseURL));
 
         loginPage = new LoginPage(driver, driverWait);
-        homePage = new HomePage(driver,driverWait);
+        homePage = new HomePage(driver, driverWait);
         signupPage = new SignUpPage(driver, driverWait);
         adminCitiesPage = new AdminCitiesPage(driver, driverWait);
         profilePage = new ProfilePage(driver, driverWait);
@@ -50,12 +42,12 @@ public abstract class BaseTest {
     }
 
     @BeforeMethod
-    public void beforeMethod (){
-        driver.get("https://vue-demo.daniel-avellaneda.com");
+    public void beforeMethod() {
+        driver.get(baseURL);
     }
 
     @AfterClass
-    public void afterClass (){
+    public void afterClass() {
         driver.quit();
     }
 }
