@@ -110,6 +110,11 @@ public class AdminCitiesPage extends BasePage {
         return adminCitiesRoute;
     }
 
+    public String getAdminUsersRoute() {
+        String adminUsersRoute = "https://vue-demo.daniel-avellaneda.com/admin/users";
+        return adminUsersRoute;
+    }
+
     public WebElement getSavedSuccessfullyMessage() {
         return driver.findElement(savedSuccessfullyMessage);
     }
