@@ -27,7 +27,13 @@ public class ProfileTest extends BaseTest{
         String country = faker.address().country();
         String twitter = "https://" + faker.internet().domainName();
         String gitHub = "https://" + faker.name().firstName() + faker.internet().domainName();
+
         profilePage.changeData(name, phone, city, country, twitter, gitHub);
+
+        String expectedResultForMessage = "Profile saved successfuly";
+        String actualResultForMessage = driver.findElement(By.xpath
+                ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]")).getText();
+        Assert.assertTrue(actualResultForMessage.contains(expectedResultForMessage));
 
         String expectedResultForName = name;
         String actualResultForName = profilePage.getNameField().getAttribute("value");
@@ -54,7 +60,5 @@ public class ProfileTest extends BaseTest{
         Assert.assertEquals(actualResultForPhone, expectedResultForPhone);
 
         homePage.logout();
-
-
     }
 }

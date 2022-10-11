@@ -10,6 +10,7 @@ public class LocaleTest extends BaseTest{
 //•	Postaviti jezik na ES
 //•	Verifikovati da se na stranici u hederu javlja tekst Página de aterrizaje
 
+    //Verify that
     @Test
     public void languageChangeToSpanish(){
         homePage.languageChangeToSpanish();

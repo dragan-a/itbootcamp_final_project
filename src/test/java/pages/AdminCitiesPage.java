@@ -73,4 +73,12 @@ public class AdminCitiesPage extends BasePage{
         getEditItemField().sendKeys(edit);
         getSaveBtn().click();
     }
+
+    public void deleteCity() {
+        getDeleteBtn().click();
+    }
+
+    public void finalCityDelete() {
+        getDeleteBtnFromWarning().click();
+    }
 }

@@ -19,9 +19,6 @@ public class ProfilePage extends BasePage{
     private By saveBtn = By.xpath
             ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[2]/span/form/div/div/div[8]/button");
 
-    public ProfilePage() {
-    }
-
     public ProfilePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -53,6 +50,7 @@ public class ProfilePage extends BasePage{
     public WebElement getSaveBtn() {
         return driver.findElement(saveBtn);
     }
+
     public void changeData(String name, String phone, String city, String country, String twitter, String gitHub){
         getNameField().click();
         getNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);

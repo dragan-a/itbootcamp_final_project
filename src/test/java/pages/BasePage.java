@@ -7,9 +7,6 @@ public abstract class BasePage {
 
     protected WebDriver driver;
     protected WebDriverWait driverWait;
-    protected HomePage homePage;
-    protected SignupPage signupPage;
-    protected LoginPage loginPage;
 
     public BasePage (){
     }
@@ -22,19 +19,4 @@ public abstract class BasePage {
         return driver;
     }
 
-    public WebDriverWait getDriverWait() {
-        return driverWait;
-    }
-
-    public HomePage getHomePage() {
-        return homePage;
-    }
-
-    public SignupPage getSignupPage() {
-        return signupPage;
-    }
-
-    public LoginPage getLoginPage() {
-        return loginPage;
-    }
 }

@@ -2,15 +2,14 @@ package tests;
 
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest{
     @Test
     public void loginPageUrlTest (){
+        homePage.visitLoginPage();
         String expectedResult = "https://vue-demo.daniel-avellaneda.com/login";
-        visitLoginPage();
         String actualResult = driver.getCurrentUrl();
         Assert.assertEquals(actualResult, expectedResult);
     }
@@ -20,7 +19,7 @@ public class LoginTest extends BaseTest{
     //•	Verifikovati da polje za unos lozinke za atribut type ima vrednost password
     @Test
     public void inputTypesTest(){
-        visitLoginPage();
+        homePage.visitLoginPage();
         String expectedResult1 = "email";
         String actualResult1 = loginPage.getEmailField().getAttribute("type");
         Assert.assertEquals(actualResult1, expectedResult1);
@@ -36,14 +35,14 @@ public class LoginTest extends BaseTest{
     //•	Verifikovati da se u url-u stranice javlja /login ruta
     @Test
     public void userDoesNotExistTest(){
-        visitLoginPage();
+        homePage.visitLoginPage();
         Faker faker = new Faker();
         String email = faker.name().firstName().toLowerCase() + faker.name().lastName().toLowerCase() + "@testmail.com";
         String password = faker.name().username();
         loginPage.enterCredentials(email, password);
         try {
             Thread.sleep(3000);
-        } catch (InterruptedException e) {      //neće bez ovoga
+        } catch (InterruptedException e) {          //driverWait
             throw new RuntimeException(e);
         }
         String expectedResult1 = "User does not exists";
@@ -62,14 +61,14 @@ public class LoginTest extends BaseTest{
     @Test
     public void loginWithInvalidPasswordTest(){
         Faker faker = new Faker();
-        visitLoginPage();
+        homePage.visitLoginPage();
         String email = "admin@admin.com";
         String password = faker.name().username();
         loginPage.enterCredentials(email, password);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e);          //driverWait
         }
         String expectedResult1 = "Wrong password";
         String actualResult1 = driver.findElement(By.tagName("li")).getText();
@@ -86,7 +85,7 @@ public class LoginTest extends BaseTest{
     //•	Verifikovati da se u url-u stranice javlja /home ruta
     @Test
     public void loginWithValidCredentialsTest(){
-        visitLoginPage();
+        homePage.visitLoginPage();
         String email = "admin@admin.com";
         String password = "12345";
         loginPage.enterCredentials(email, password);
@@ -120,17 +119,11 @@ public class LoginTest extends BaseTest{
         String expectedResult2 = "https://vue-demo.daniel-avellaneda.com/login";
         String actualResult2 = driver.getCurrentUrl();
         Assert.assertEquals(actualResult2, expectedResult2);
-
     }
-
-
 
     public void checkUrlLoginRoute(){
         String expectedResult = "https://vue-demo.daniel-avellaneda.com/login";
         String actualResult = driver.getCurrentUrl();
         Assert.assertEquals(actualResult, expectedResult);
-    }
-    public void visitLoginPage(){
-        homePage.visitLoginPage();
     }
 }
