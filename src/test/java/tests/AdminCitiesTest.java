@@ -1,130 +1,83 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AdminCitiesTest extends BaseTest {
-    //Test #1: Visits the admin cities page and list cities
-    //Podaci:
-    //•	admin email: admin@admin.com
-    //•	admin password: 12345
-    //assert:
-    //•	Verifikovati da se u url-u stranice javlja /admin/cities ruta
-    //•	Verifikovati postojanje logut dugmeta
 
-    //getNameField().sendKeys(Keys.CONTROL + "a" + Keys.DELETE)
+    private final String newCity = "Madrid";
+    private final String edit = " - edited";
+    private final String editedCityName = newCity + edit;
+
     @Test
     public void citiesPageTest() {
-        homePage.visitLoginPage();
-        loginPage.enterCredentials("admin@admin.com", "12345");
-        homePage.visitCitiesPage();
-        String expectedResult1 = "https://vue-demo.daniel-avellaneda.com/admin/cities";
-        String actualResult1 = driver.getCurrentUrl();
-        Assert.assertEquals(actualResult1, expectedResult1);
+        login();
 
-        boolean expectedResult2 = true;
-        boolean actualResult2 = homePage.getLogoutButton().isDisplayed();
-        Assert.assertTrue(expectedResult2, String.valueOf(actualResult2));
+        //Verify that page URL shows /admin/cities route
+        Assert.assertEquals(driver.getCurrentUrl(), adminCitiesPage.getAdminCitiesRoute());
+
+        //Verify that "Logout" button is visible
+        Assert.assertTrue(true, String.valueOf(homePage.getLogoutButton().isDisplayed()));
         homePage.logout();
     }
-    //Test #2: Create new city
-    //Podaci: random grad korisćenjem faker library-ja
-    //assert:
-    //•	Verifikovati da poruka sadrzi tekst Saved successfully
 
-    @Test(priority = 1)
-    public void createCityTest() {
-        homePage.visitLoginPage();
-        loginPage.enterCredentials("admin@admin.com", "12345");
-        homePage.visitCitiesPage();
-        String newCity = "Boston";
+    @Test
+    public void createCity() {
+        login();
         adminCitiesPage.addingNewCity(newCity);
+        adminCitiesPage.waitingForSavedSuccessfullyMessageBox();
 
-        String expectedResult = "Saved successfully";
-        String actualResult = driver.findElement(By.xpath(
-                ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"))).getText();
-        Assert.assertTrue(actualResult.contains(expectedResult));
+        //Verify that "Saved successfully" message appears
+        Assert.assertTrue(adminCitiesPage.getSavedSuccessfullyMessage().getText().contains("Saved successfully"));
         homePage.logout();
     }
 
-    //Test #3: Edit city
-    //Podaci: edituje se grad koji je u testu 2 kreiran na isto ime + - edited (primer: Beograd – Beograd edited)
-    //assert:
-    //•	Verifikovati da poruka sadrzi tekst Saved successfully
-    @Test(priority = 2)
-    public void editCityTest() {
-        homePage.visitLoginPage();
-        loginPage.enterCredentials("admin@admin.com", "12345");
-        homePage.visitCitiesPage();
-        String myCity = "Boston";
-        String edit = " - edited";
-        adminCitiesPage.editCity(myCity, edit);
-        String expectedResult1 = myCity + edit;
-        String actualResult1 = adminCitiesPage.getEditedCityName().getText();
-        Assert.assertEquals(actualResult1, expectedResult1);
+    @Test
+    public void editCity() {
+        login();
+        adminCitiesPage.editCity(newCity, edit);
 
-        String expectedResult2 = "Saved successfully";
-        String actualResult2 = driver.findElement(By.xpath(
-                ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"))).getText();
-        Assert.assertTrue(actualResult2.contains(expectedResult2));
+        //Verify that edited city name is "Madrid - edited"
+        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), editedCityName);
+
+        //Verify that "Saved successfully" message appears
+        Assert.assertTrue(adminCitiesPage.getSavedSuccessfullyMessage().getText().contains("Saved successfully"));
         homePage.logout();
     }
 
-    //Test #4: Search city
-    //Podaci: editovani grad iz testa #3
-    //assert:
-    //•	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
-    @Test(priority = 3)
-    public void searchCityTest() {
-        homePage.visitLoginPage();
-        loginPage.enterCredentials("admin@admin.com", "12345");
-        homePage.visitCitiesPage();
-        String myCity = "Boston - edited";
-        adminCitiesPage.getSearchField().sendKeys(myCity);
-        String expectedResult = myCity;
-        String actualResult = adminCitiesPage.getEditedCityName().getText();
-        Assert.assertEquals(actualResult, expectedResult);
+    @Test
+    public void searchCity() {
+        login();
+        adminCitiesPage.searchCity(editedCityName);
+
+        //Verify that city from search is in first "Name" column
+        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), editedCityName);
         homePage.logout();
     }
-    //Test #5: Delete city
-    //Podaci: editovani grad iz testa #3
-    //assert:
-    //•	U polje za pretragu uneti staro ime grada
-    //•	Sacekati da broj redova u tabeli bude 1
-    //•	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
-    //•	Kliknuti na dugme Delete iz prvog reda
-    //•	Sacekati da se dijalog za brisanje pojavi
-    //•	Kliknuti na dugme Delete iz dijaloga
-    //•	Sacekati da popu za prikaz poruke bude vidljiv
-    //•	Verifikovati da poruka sadrzi tekst Deleted successfully
 
-    @Test(priority = 4)
-    public void deleteCityTest() {
-        homePage.visitLoginPage();
-        loginPage.enterCredentials("admin@admin.com", "12345");
-        homePage.visitCitiesPage();
-        String myCity = "Boston - edited";
-        adminCitiesPage.getSearchField().sendKeys(myCity);
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated
-                (By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[3]/div[2]")));
-        String expectedResult = myCity;
-        String actualResult = adminCitiesPage.getEditedCityName().getText();
-        Assert.assertEquals(actualResult, expectedResult);
+    @Test
+    public void deleteCity() {
+        login();
+        adminCitiesPage.searchCity(editedCityName);
+        adminCitiesPage.waitingForOneColumnToAppear();
+
+        //Verify that city from search is in first "Name" column
+        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), editedCityName);
+
         adminCitiesPage.deleteCity();
-
-        //waiting for warning dialogue
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[5]/div")));
+        adminCitiesPage.waitingForWarningDialogue();
         adminCitiesPage.finalCityDelete();
+        adminCitiesPage.waitingForPopUpDialogue();
 
-        //waiting for pop-up
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated
-                (By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
+        //Verify that message contains text ""Deleted successfully"
+        Assert.assertTrue(adminCitiesPage.getDeletedSuccessfullyMessage().getText().contains("Deleted successfully"));
+    }
 
-        String expectedResult2 = "Deleted successfully";
-        String actualResult2 = driver.findElement(By.xpath
-                ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")).getText();
-        Assert.assertTrue(actualResult2.contains(expectedResult2));
+    public void login() {
+        homePage.visitLoginPage();
+        String validPassword = "12345";
+        String validEmail = "admin@admin.com";
+        loginPage.enterCredentials(validEmail, validPassword);
+        homePage.visitCitiesPage();
     }
 }
