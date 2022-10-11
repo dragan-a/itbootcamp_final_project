@@ -18,8 +18,6 @@ public class AdminCitiesPage extends BasePage{
     private By deleteBtn = By.id("delete");
     private By deleteBtnFromWarning = By.xpath("//*[@id='app']/div[5]/div/div/div[2]/button[2]");
 
-    public AdminCitiesPage(){
-    }
 
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);

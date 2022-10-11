@@ -5,9 +5,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
-public class ProfileTest extends BaseTest{
+public class ProfileTest extends BaseTest {
     //Test #1: Edits profile
     //Podaci: random podaci korišćenjem faker library-ja
     //assert:
@@ -15,7 +13,7 @@ public class ProfileTest extends BaseTest{
     //•	Verifikovati da svaki input sada za value atribut ima vrednost koja je uneta u okviru forme
 
     @Test
-    public void editingProfileTest(){
+    public void editingProfileTest() {
         homePage.visitLoginPage();
         loginPage.enterCredentials("admin@admin.com", "12345");
         homePage.visitProfilePage();

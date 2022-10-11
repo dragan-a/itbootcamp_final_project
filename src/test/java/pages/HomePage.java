@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -68,6 +69,11 @@ public class HomePage extends BasePage{
         return driver.findElement(homeButton);
     }
 
+    public String getHomeRoute() {
+        String homeRoute = "https://vue-demo.daniel-avellaneda.com/home";
+        return homeRoute;
+    }
+
     public void visitLoginPage(){
         getLoginButton().click();
     }
@@ -107,5 +113,8 @@ public class HomePage extends BasePage{
     public void languageChangeToFrance(){
         getLanguageButton().click();
         getFranceButton().click();
+    }
+    public void waitingForHomeRouteToAppear(){
+        driverWait.until(ExpectedConditions.urlMatches(getHomeRoute()));
     }
 }

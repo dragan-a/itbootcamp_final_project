@@ -1,5 +1,6 @@
 package tests;
 
+import com.github.javafaker.Address;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,6 +27,8 @@ public abstract class BaseTest {
     protected SignUpPage signupPage;
     protected AdminCitiesPage adminCitiesPage;
     protected ProfilePage profilePage;
+    protected FakerPage fakerPage;
+
 
     @BeforeClass
     public void beforeClass (){
@@ -43,6 +46,7 @@ public abstract class BaseTest {
         signupPage = new SignUpPage(driver, driverWait);
         adminCitiesPage = new AdminCitiesPage(driver, driverWait);
         profilePage = new ProfilePage(driver, driverWait);
+        fakerPage = new FakerPage(driver, driverWait);
     }
 
     @BeforeMethod
