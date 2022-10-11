@@ -8,18 +8,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePage extends BasePage{
-    private By homeButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[1]");
-    private By loginButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
-    private By signupButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[4]");
-    private By adminButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[1]");
-    private By citiesButton = By.xpath("//*[@id=\"app\"]/div[3]/div[1]/a[1]");
-    private By logoutButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]");
-    private By languageButton = By.xpath("//*[@id=\"app\"]/div/div/header/div/div[3]/button");
-    private By spanishButton = By.id("list-item-75");
-    private By englishButton = By.id("list-item-73");
-    private By franceButton = By.id("list-item-77");
-    private By profileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
+public class HomePage extends BasePage {
+    private final By homeButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[1]");
+    private final By loginButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
+    private final By signupButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[4]");
+    private final By adminButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[1]");
+    private final By citiesButton = By.xpath("//*[@id=\"app\"]/div[3]/div[1]/a[1]");
+    private final By logoutButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]");
+    private final By languageButton = By.xpath("//*[@id=\"app\"]/div/div/header/div/div[3]/button");
+    private final By spanishButton = By.id("list-item-75");
+    private final By englishButton = By.id("list-item-73");
+    private final By franceButton = By.id("list-item-77");
+    private final By profileButton = By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]");
 
     public HomePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -74,11 +74,11 @@ public class HomePage extends BasePage{
         return homeRoute;
     }
 
-    public void visitLoginPage(){
+    public void visitLoginPage() {
         getLoginButton().click();
     }
 
-    public void visitSignUpPage(){
+    public void visitSignUpPage() {
         getSignupButton().click();
     }
 
@@ -86,35 +86,33 @@ public class HomePage extends BasePage{
         getProfileButton().click();
     }
 
-    public void logout(){
+    public void logout() {
         getLogoutButton().click();
     }
 
-    public void visitHomePage(){
-        getHomeButton().click();
-    }
 
-    public void visitCitiesPage (){
+    public void visitCitiesPage() {
         getAdminButton().click();
         driverWait.withTimeout(Duration.ofSeconds(5));
         getCitiesButton().click();
     }
 
-    public void languageChangeToSpanish(){
+    public void languageChangeToSpanish() {
         getLanguageButton().click();
         getSpanishButton().click();
     }
 
-    public void languageChangeToEnglish(){
+    public void languageChangeToEnglish() {
         getLanguageButton().click();
         getEnglishButton().click();
     }
 
-    public void languageChangeToFrance(){
+    public void languageChangeToFrance() {
         getLanguageButton().click();
         getFranceButton().click();
     }
-    public void waitingForHomeRouteToAppear(){
+
+    public void waitingForHomeRouteToAppear() {
         driverWait.until(ExpectedConditions.urlMatches(getHomeRoute()));
     }
 }

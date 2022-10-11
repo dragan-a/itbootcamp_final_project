@@ -36,7 +36,7 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(loginPage.getUserDoesNotExistsMessage().getText(), "User does not exists");
 
         //Verify that page URL shows /login route
-        checkUrlLoginRoute();
+        checkLoginRoute();
     }
 
     //Data: valid email and invalid password
@@ -49,7 +49,7 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(loginPage.getWrongPasswordMessage().getText(), "Wrong password");
 
         //Verify that page URL shows /login route
-        checkUrlLoginRoute();
+        checkLoginRoute();
     }
 
     @Test
@@ -59,16 +59,18 @@ public class LoginTest extends BaseTest {
 
         //Verify that page URL shows /home route
         Assert.assertEquals(driver.getCurrentUrl(), homePage.getHomeRoute());
+        homePage.logout();
     }
 
-    @Test(dependsOnMethods = {"loginWithValidCredentials"})
+    @Test
     public void logoutTest() {
+        login(validEmail, validPassword);
         //Verify that "Logout" button is visible
         Assert.assertTrue(true, String.valueOf(homePage.getLogoutButton().isDisplayed()));
 
         //Verify that /login route appears after logging out
         homePage.logout();
-        checkUrlLoginRoute();
+        checkLoginRoute();
 
         //Verify that user is redirected to Login Page when tries to go to Home Page
         driver.get("https://vue-demo.daniel-avellaneda.com/home");
@@ -76,7 +78,7 @@ public class LoginTest extends BaseTest {
     }
 
     //This was used several times so I made a method
-    public void checkUrlLoginRoute() {
+    public void checkLoginRoute() {
         Assert.assertEquals(driver.getCurrentUrl(), loginPage.getLoginRoute());
     }
 
