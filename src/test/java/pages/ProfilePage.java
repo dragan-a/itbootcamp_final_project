@@ -4,20 +4,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class ProfilePage extends BasePage{
-    private By nameField = By.id("name");
-    private By phoneField = By.id("phone");
-    private By cityField = By.id("city");
-    private By countryField = By.id("country");
-    private By twitterField = By.id("urlTwitter");
-    private By gitHubField = By.id("urlGitHub");
-    private By saveBtn = By.xpath
+public class ProfilePage extends BasePage {
+    private final By nameField = By.id("name");
+    private final By phoneField = By.id("phone");
+    private final By cityField = By.id("city");
+    private final By countryField = By.id("country");
+    private final By twitterField = By.id("urlTwitter");
+    private final By gitHubField = By.id("urlGitHub");
+    private final By saveBtn = By.xpath
             ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[2]/span/form/div/div/div[8]/button");
+    private final By profileSavedSuccessfullyMessage = By.xpath
+            ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]");
+    private final String validEmail = "admin@admin.com";
+    private final String validPassword = "12345";
 
     public ProfilePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -51,7 +52,19 @@ public class ProfilePage extends BasePage{
         return driver.findElement(saveBtn);
     }
 
-    public void changeData(String name, String phone, String city, String country, String twitter, String gitHub){
+    public WebElement getProfileSavedSuccessfullyMessage() {
+        return driver.findElement(profileSavedSuccessfullyMessage);
+    }
+
+    public String getValidEmail() {
+        return validEmail;
+    }
+
+    public String getValidPassword() {
+        return validPassword;
+    }
+
+    public void editData(String name, String phone, String city, String country, String twitter, String gitHub) {
         getNameField().click();
         getNameField().sendKeys(Keys.CONTROL + "A", Keys.DELETE);
         getNameField().sendKeys(name);
@@ -72,5 +85,4 @@ public class ProfilePage extends BasePage{
         getGitHubField().sendKeys(gitHub);
         getSaveBtn().click();
     }
-
 }

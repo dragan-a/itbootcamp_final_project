@@ -18,6 +18,10 @@ public class SignUpPage extends BasePage {
             ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div");
     private final By verifyYourAccountMessageBox = By.xpath("//*[@id=\"app\"]/div[4]/div");
     private final By verifyYourAccountMessage = By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]");
+    private final String validName = "Test test";
+    private final String validEmail = "admin@admin.com";
+    private final String validPassword = "123654";
+    private final String validConfirmPassword = "123654";
 
     public SignUpPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -57,6 +61,22 @@ public class SignUpPage extends BasePage {
 
     public WebElement getEmailAlreadyExistsBox() {
         return driver.findElement(emailAlreadyExistsBox);
+    }
+
+    public String getValidName() {
+        return validName;
+    }
+
+    public String getValidEmail() {
+        return validEmail;
+    }
+
+    public String getValidPassword() {
+        return validPassword;
+    }
+
+    public String getValidConfirmPassword() {
+        return validConfirmPassword;
     }
 
     public String getSignUpRoute() {

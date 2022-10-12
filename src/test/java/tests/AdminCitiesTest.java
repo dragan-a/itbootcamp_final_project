@@ -5,10 +5,6 @@ import org.testng.annotations.Test;
 
 public class AdminCitiesTest extends BaseTest {
 
-    private final String newCity = "Madrid";
-    private final String edit = " - edited";
-    private final String editedCityName = newCity + edit;
-
     @Test
     public void citiesPageTest() {
         login();
@@ -24,7 +20,7 @@ public class AdminCitiesTest extends BaseTest {
     @Test
     public void createCity() {
         login();
-        adminCitiesPage.addingNewCity(newCity);
+        adminCitiesPage.addingNewCity(adminCitiesPage.getNewCity());
         adminCitiesPage.waitingForSavedSuccessfullyMessageBox();
 
         //Verify that "Saved successfully" message appears
@@ -35,10 +31,10 @@ public class AdminCitiesTest extends BaseTest {
     @Test
     public void editCity() {
         login();
-        adminCitiesPage.editCity(newCity, edit);
+        adminCitiesPage.editCity(adminCitiesPage.getNewCity(), adminCitiesPage.getEdit());
 
         //Verify that edited city name is "Madrid - edited"
-        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), editedCityName);
+        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), adminCitiesPage.getEditedNewCityName());
 
         //Verify that "Saved successfully" message appears
         Assert.assertTrue(adminCitiesPage.getSavedSuccessfullyMessage().getText().contains("Saved successfully"));
@@ -48,21 +44,21 @@ public class AdminCitiesTest extends BaseTest {
     @Test
     public void searchCity() {
         login();
-        adminCitiesPage.searchCity(editedCityName);
+        adminCitiesPage.searchCity(adminCitiesPage.getEditedNewCityName());
 
         //Verify that city from search is in first "Name" column
-        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), editedCityName);
+        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), adminCitiesPage.getEditedNewCityName());
         homePage.logout();
     }
 
     @Test
     public void deleteCity() {
         login();
-        adminCitiesPage.searchCity(editedCityName);
+        adminCitiesPage.searchCity(adminCitiesPage.getEditedNewCityName());
         adminCitiesPage.waitingForOneColumnToAppear();
 
         //Verify that city from search is in first "Name" column
-        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), editedCityName);
+        Assert.assertEquals(adminCitiesPage.getEditedCityName().getText(), adminCitiesPage.getEditedNewCityName());
 
         adminCitiesPage.deleteCity();
         adminCitiesPage.waitingForWarningDialogue();
@@ -75,9 +71,7 @@ public class AdminCitiesTest extends BaseTest {
 
     public void login() {
         homePage.visitLoginPage();
-        String validPassword = "12345";
-        String validEmail = "admin@admin.com";
-        loginPage.enterCredentials(validEmail, validPassword);
+        loginPage.enterCredentials(adminCitiesPage.getValidEmail(), adminCitiesPage.getValidPassword());
         homePage.visitCitiesPage();
     }
 }

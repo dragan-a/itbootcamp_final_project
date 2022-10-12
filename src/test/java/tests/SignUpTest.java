@@ -5,11 +5,6 @@ import org.testng.annotations.Test;
 
 public class SignUpTest extends BaseTest {
 
-    private final String validName = "Test test";
-    private final String validEmail = "admin@admin.com";
-    private final String validPassword = "123654";
-    private final String validConfirmPassword = "123654";
-
     //Verify that page URL shows /signup route
     @Test
     public void checkSignUpPageUrl() {
@@ -34,7 +29,8 @@ public class SignUpTest extends BaseTest {
     @Test
     public void emailAlreadyExists() {
         homePage.visitSignUpPage();
-        signupPage.enterCredentials(validName, validEmail, validPassword, validConfirmPassword);
+        signupPage.enterCredentials(signupPage.getValidName(), signupPage.getValidEmail(),
+                signupPage.getValidPassword(), signupPage.getValidConfirmPassword());
         signupPage.waitingForEmailAlreadyExistsMessageBox();
 
         //Verify that "E-mail already exists" message appears

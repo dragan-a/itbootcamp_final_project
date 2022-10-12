@@ -88,7 +88,8 @@ public class HomePage extends BasePage {
         String homeRoute = "https://vue-demo.daniel-avellaneda.com/home";
         return homeRoute;
     }
-    public String getProfileRoute(){
+
+    public String getProfileRoute() {
         String profileRoute = "https://vue-demo.daniel-avellaneda.com/profile";
         return profileRoute;
     }

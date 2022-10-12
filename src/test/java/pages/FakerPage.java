@@ -23,24 +23,12 @@ public class FakerPage extends BasePage {
         super(driver, driverWait);
     }
 
-    public Faker getFaker() {
-        return faker;
-    }
-
     public String getFakeEmailForLogin() {
         return fakeEmailForLogin;
     }
 
     public String getFakePassword() {
         return fakePassword;
-    }
-
-    public String getFakeFirstName() {
-        return fakeFirstName;
-    }
-
-    public String getFakeLastName() {
-        return fakeLastName;
     }
 
     public String getFakeName() {

@@ -31,7 +31,11 @@ public class AdminCitiesPage extends BasePage {
     private final By warningDialogue = By.xpath("//*[@id=\"app\"]/div[5]/div");
 
     private final By popUpDialogue = By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]");
-
+    private final String validEmail = "admin@admin.com";
+    private final String validPassword = "12345";
+    private final String newCity = "Madrid";
+    private final String edit = " - edited";
+    private final String editedNewCityName = newCity + edit;
 
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -87,6 +91,26 @@ public class AdminCitiesPage extends BasePage {
 
     public WebElement getDeletedSuccessfullyMessage() {
         return driver.findElement(deletedSuccessfullyMessage);
+    }
+
+    public String getValidEmail() {
+        return validEmail;
+    }
+
+    public String getValidPassword() {
+        return validPassword;
+    }
+
+    public String getNewCity() {
+        return newCity;
+    }
+
+    public String getEdit() {
+        return edit;
+    }
+
+    public String getEditedNewCityName() {
+        return editedNewCityName;
     }
 
     public void waitingForSavedSuccessfullyMessageBox() {

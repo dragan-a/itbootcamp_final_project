@@ -4,8 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
-    private final String validEmail = "admin@admin.com";
-    private final String validPassword = "12345";
+
     //Invalid credentials are provided by Faker Library
 
     //Verify that URL shows /login route
@@ -42,7 +41,7 @@ public class LoginTest extends BaseTest {
     //Data: valid email and invalid password
     @Test
     public void loginWithInvalidPassword() {
-        login(validEmail, fakerPage.getFakePassword());
+        login(loginPage.getValidEmail(), fakerPage.getFakePassword());
         loginPage.waitingForWrongPasswordMessageBox();
 
         //Verify that "Wrong password" message appears
@@ -54,7 +53,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void loginWithValidCredentials() {
-        login(validEmail, validPassword);
+        login(loginPage.getValidEmail(), loginPage.getValidPassword());
         homePage.waitingForHomeRouteToAppear();
 
         //Verify that page URL shows /home route
@@ -64,7 +63,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void logoutTest() {
-        login(validEmail, validPassword);
+        login(loginPage.getValidEmail(), loginPage.getValidPassword());
         //Verify that "Logout" button is visible
         Assert.assertTrue(true, String.valueOf(homePage.getLogoutButton().isDisplayed()));
 

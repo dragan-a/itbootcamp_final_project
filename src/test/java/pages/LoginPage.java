@@ -17,6 +17,8 @@ public class LoginPage extends BasePage {
     private final By wrongPasswordMessage = By.tagName("li");
     private final By getWrongPasswordMessageBox = By.xpath
             ("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div");
+    private final String validEmail = "admin@admin.com";
+    private final String validPassword = "12345";
 
     public LoginPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -53,6 +55,14 @@ public class LoginPage extends BasePage {
     public String getLoginRoute() {
         String loginRoute = "https://vue-demo.daniel-avellaneda.com/login";
         return loginRoute;
+    }
+
+    public String getValidEmail() {
+        return validEmail;
+    }
+
+    public String getValidPassword() {
+        return validPassword;
     }
 
     public void waitingForUserDoesNotExistsMessageBox() {
