@@ -19,7 +19,7 @@ public abstract class BaseTest {
     protected SignUpPage signupPage;
     protected AdminCitiesPage adminCitiesPage;
     protected ProfilePage profilePage;
-    protected FakerPage fakerPage;
+    protected Util fakerPage;
     private final String baseURL = "https://vue-demo.daniel-avellaneda.com";
 
     @BeforeClass
@@ -38,7 +38,7 @@ public abstract class BaseTest {
         signupPage = new SignUpPage(driver, driverWait);
         adminCitiesPage = new AdminCitiesPage(driver, driverWait);
         profilePage = new ProfilePage(driver, driverWait);
-        fakerPage = new FakerPage(driver, driverWait);
+        fakerPage = new Util();
     }
 
     @BeforeMethod

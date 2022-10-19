@@ -7,10 +7,11 @@ public class LoginTest extends BaseTest {
 
     //Invalid credentials are provided by Faker Library
 
-    //Verify that URL shows /login route
     @Test
     public void checkLoginPageUrl() {
         homePage.visitLoginPage();
+
+        //Verify that URL shows /login route
         Assert.assertEquals(driver.getCurrentUrl(), loginPage.getLoginRoute());
     }
 
@@ -31,7 +32,7 @@ public class LoginTest extends BaseTest {
         login(fakerPage.getFakeEmailForLogin(), fakerPage.getFakePassword());
         loginPage.waitingForUserDoesNotExistsMessageBox();
 
-        //Verify that "User does not exists" message appears
+        //Verify that "User does not exists" message appears - wrong grammar used in original message, should be "exist"
         Assert.assertEquals(loginPage.getUserDoesNotExistsMessage().getText(), "User does not exists");
 
         //Verify that page URL shows /login route
@@ -77,11 +78,11 @@ public class LoginTest extends BaseTest {
     }
 
     //This was used several times so I made a method
-    public void checkLoginRoute() {
+    private void checkLoginRoute() {
         Assert.assertEquals(driver.getCurrentUrl(), loginPage.getLoginRoute());
     }
 
-    public void login(String email, String password) {
+    private void login(String email, String password) {
         homePage.visitLoginPage();
         loginPage.enterCredentials(email, password);
     }

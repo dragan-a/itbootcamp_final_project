@@ -33,7 +33,7 @@ public class AuthRoutesTest extends BaseTest {
         checkIfLoginRouteShows();
     }
 
-    public void checkIfLoginRouteShows() {
+    private void checkIfLoginRouteShows() {
         Assert.assertEquals(driver.getCurrentUrl(), loginPage.getLoginRoute());
     }
 }

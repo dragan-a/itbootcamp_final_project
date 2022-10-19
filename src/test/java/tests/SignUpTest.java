@@ -5,10 +5,11 @@ import org.testng.annotations.Test;
 
 public class SignUpTest extends BaseTest {
 
-    //Verify that page URL shows /signup route
     @Test
     public void checkSignUpPageUrl() {
         homePage.visitSignUpPage();
+
+        //Verify that page URL shows /signup route
         checkSignUpRoute();
     }
 
@@ -55,11 +56,11 @@ public class SignUpTest extends BaseTest {
         Assert.assertEquals(signupPage.getVerifyYourAccountMessage().getText(), "IMPORTANT: Verify your account");
     }
 
-    public void checkSignUpRoute() {
+    private void checkSignUpRoute() {
         Assert.assertEquals(driver.getCurrentUrl(), signupPage.getSignUpRoute());
     }
 
-    public void signUp(String name, String email, String password, String confirmPassword) {
+    private void signUp(String name, String email, String password, String confirmPassword) {
         homePage.visitSignUpPage();
         signupPage.enterCredentials(name, email, password, confirmPassword);
     }

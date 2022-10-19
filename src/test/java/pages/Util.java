@@ -1,10 +1,8 @@
 package pages;
 
 import com.github.javafaker.Faker;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class FakerPage extends BasePage {
+public class Util {
 
     protected Faker faker = new Faker();
     private final String fakeEmailForLogin = faker.name().firstName().toLowerCase() + "." + faker.name().lastName().toLowerCase() + "@testmail.com";
@@ -19,8 +17,7 @@ public class FakerPage extends BasePage {
     private final String fakeTwitter = "https://" + faker.internet().domainName();
     private final String fakeGitHub = "https://" + faker.name().firstName() + faker.internet().domainName();
 
-    public FakerPage(WebDriver driver, WebDriverWait driverWait) {
-        super(driver, driverWait);
+    public Util() {
     }
 
     public String getFakeEmailForLogin() {

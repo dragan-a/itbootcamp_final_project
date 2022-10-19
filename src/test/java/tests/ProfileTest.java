@@ -41,7 +41,7 @@ public class ProfileTest extends BaseTest {
         homePage.logout();
     }
 
-    public void login() {
+    private void login() {
         homePage.visitLoginPage();
         loginPage.enterCredentials(profilePage.getValidEmail(), profilePage.getValidPassword());
         homePage.visitProfilePage();

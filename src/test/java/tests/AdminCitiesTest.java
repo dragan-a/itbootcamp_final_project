@@ -69,7 +69,7 @@ public class AdminCitiesTest extends BaseTest {
         Assert.assertTrue(adminCitiesPage.getDeletedSuccessfullyMessage().getText().contains("Deleted successfully"));
     }
 
-    public void login() {
+    private void login() {
         homePage.visitLoginPage();
         loginPage.enterCredentials(adminCitiesPage.getValidEmail(), adminCitiesPage.getValidPassword());
         homePage.visitCitiesPage();
